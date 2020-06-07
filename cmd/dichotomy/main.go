@@ -1,32 +1,15 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"log"
 
-	"github.com/holmanskih/operations-research/dich"
+	"github.com/holmanskih/operations-research/internal/ui"
 )
 
-func f(x float64) float64 {
-	return x*x*x - x*x + 2
-}
-
 func main() {
-	xMin := flag.Float64("xMin", -200, "xMin dichotomy")
-	xMax := flag.Float64("xMax", 300, "xMax dichotomy")
-	flag.Parse()
-
-	dich, err := dich.NewDichotomyService(f, *xMin, *xMax)
+	app, err := ui.NewApp()
 	if err != nil {
-		log.Fatalf("failed to run dichotomy service")
+		log.Fatalf("gfailed to start the app: %s", err)
 	}
-	dichRes, err := dich.Dichotomy()
-	if err != nil {
-		log.Fatalf("failed to do dechotomy")
-	}
-	log.Println(dichRes)
-
-	fmt.Println("xMin:", *xMin)
-	fmt.Println("xMax:", *xMax)
+	app.LoadUI("Dichotomy")
 }
