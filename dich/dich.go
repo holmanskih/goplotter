@@ -3,7 +3,6 @@ package dich
 import (
 	"fmt"
 
-	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/widget"
 
@@ -15,7 +14,7 @@ type DichotomyService struct {
 
 	XMin, XMax float64
 	plotter    *plotter.Plotter
-	app        fyne.App
+	//app        fyne.App
 }
 
 func NewDichotomyService(f func(x float64) float64, xMin, xMax float64) (*DichotomyService, error) {

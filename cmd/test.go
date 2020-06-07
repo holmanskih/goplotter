@@ -6,5 +6,5 @@ import (
 
 func main() {
 	app := ui.NewApp()
-	app.LoadUI()
+	app.LoadUI("Dichotomy")
 }
