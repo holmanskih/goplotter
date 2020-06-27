@@ -12,12 +12,12 @@ import (
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 
-	"github.com/holmanskih/operations-research/internal/plotter"
+	"github.com/holmanskih/goplotter/plotter"
 )
 
 const (
-	plotName        = "Dichotomy"
-	plotExportImage = "dichotomy.png"
+	plotName        = "sin(x)^2/(2 + sin(x))"
+	plotExportImage = "plot.png"
 )
 
 func f(x float64) float64 {

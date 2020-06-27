@@ -1,4 +1,4 @@
-module github.com/holmanskih/operations-research
+module github.com/holmanskih/goplotter
 
 go 1.12
 
