@@ -15,29 +15,13 @@ import (
 	"github.com/holmanskih/operations-research/internal/plotter"
 )
 
+const (
+	plotName        = "Dichotomy"
+	plotExportImage = "dichotomy.png"
+)
+
 func f(x float64) float64 {
 	return math.Pow(math.Sin(x), 2) / (2 + math.Sin(x))
-}
-
-func Dichotomy(f func(x float64) float64, a, b float64) (float64, error) {
-	if f(a)*f(b) >= 0 {
-		return 0, fmt.Errorf("wrong interal")
-	}
-	c := a
-
-	for (b - a) >= 0.01 {
-		c = (a + b) / 2
-		if f(c) == 0 {
-			break
-		}
-
-		if f(c)*f(a) < 0 {
-			b = c
-		} else {
-			a = c
-		}
-	}
-	return c, nil
 }
 
 // Represents the UI fyne.io application struct
@@ -56,7 +40,7 @@ type App struct {
 func NewApp() (*App, error) {
 	a := &App{}
 
-	p, err := plotter.NewPlotter("dich")
+	p, err := plotter.NewPlotter(plotName)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new Plotter: %s", err)
 	}
@@ -84,45 +68,19 @@ func NewApp() (*App, error) {
 			{Text: "Precious", Widget: preciousEntry},
 		},
 		OnSubmit: func() {
-
-			fmt.Println("Form submitted")
-
-			// calculate dichotomy
-			//from, err := strconv.ParseFloat(xMinEntry.Text, 64)
-			//if err != nil {
-			//	log.Print("failed to parse float")
-			//}
-			//
-			//to, err := strconv.ParseFloat(xMaxEntry.Text, 64)
-			//if err != nil {
-			//	log.Print("failed to parse float")
-			//}
-
-			//dich, err := Dichotomy(f, from, to)
-			//if err != nil {
-			//	log.Print("failed to run dich method")
-			//
-			//}
-
 			// plot the function
 			// save function to a file
-			err = a.Plotter.Save("f.png")
+			err = a.Plotter.Save(plotExportImage)
 			if err != nil {
 				log.Println("failed to save plot image")
 			}
 
 			// read the file by fyne
-			a.setImage("f.png")
+			a.setImage(plotExportImage)
 		},
 	}
 	return a, nil
 }
-
-//func (a *App) addButton(text string, action func()) *widget.Button {
-//	button := widget.NewButton(text, action)
-//	a.buttons[text] = button
-//	return button
-//}
 
 func (a *App) LoadUI(windowName string) {
 	a.window = a.ui.NewWindow(windowName)
